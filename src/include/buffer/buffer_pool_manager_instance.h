@@ -131,14 +131,19 @@ class BufferPoolManagerInstance : public BufferPoolManager {
    * @brief Delete a page from the buffer pool. If page_id is not in the buffer pool, do nothing and return true. If the
    * page is pinned and cannot be deleted, return false immediately.
    *
-   * After deleting the page from the page table, stop tracking the frame in the replacer and add the frame
-   * back to the free list. Also, reset the page's memory and metadata. Finally, you should call DeallocatePage() to
+   * After deleting the page from the page table, stop tracking
+   * the frame in the replacer and add the frame
+   * back to the free list.
+   * Also, reset the page's memory and metadata.
+   * Finally, you should call DeallocatePage() to
    * imitate freeing the page on the disk.
    *
    * @param page_id id of page to be deleted
    * @return false if the page exists but could not be deleted, true if the page didn't exist or deletion succeeded
    */
   auto DeletePgImp(page_id_t page_id) -> bool override;
+
+  auto GetAvailableFrame(frame_id_t *ft) -> bool;
 
   /** Number of pages in the buffer pool. */
   const size_t pool_size_;
